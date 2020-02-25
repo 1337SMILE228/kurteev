@@ -1,0 +1,62 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int* dmass;
+	int C = 0, temp, K;
+	string S, O;
+	cout << "Путь файла=";
+	cin >> S;
+	string path = S;
+	ifstream fin;
+	fin.open(path);
+	if (!fin.is_open())
+	{
+		cout << "Ошибка открытия файла!\ n";
+		return 0;
+	}
+	while (!fin.eof())
+	{
+		O = "";
+		fin >> O;
+		C++;
+	}
+	fin.close();
+	fin.open(path);
+	dmass = new int[C];
+	for (int i = 0; i < C; i++)
+	{
+		fin >> K;
+		if (K > 0)
+		{
+			dmass[i] = K;
+		}
+	}
+	fin.close();
+	cout << "Старый массив-\n";
+	for (int i = 0; i < C; i++)
+	{
+		cout << dmass[i] << "\n";
+	}
+	for (int i = 0; i < C; i++)
+	{
+		for (int j = 0; j < C - 1; j++)
+		{
+			if (dmass[j] > dmass [j + 1] )
+			{
+				temp = dmass[j];
+				dmass[j] = dmass[j + 1];
+				dmass[j + 1] = temp;
+			}
+		}
+	}
+	cout << "\nНовый массив-\n";
+	for (int i = 0; i < C; i++)
+	{
+		cout << dmass[i] << "\n";
+	}
+	return 0;
+}
